@@ -1009,6 +1009,21 @@ would happen if the current value happened to be `false`.)
     enabled = true if enabled.nil?
     ```
 
+* User `&&=` to preprocess a value, but only if it exists.
+    ```Ruby
+    #bad
+    if params[:tag]
+      params[:tag] = params[:tag].downcase
+    end
+
+    #ok
+    params[:tag] = params[:tag].downcase if params[:tag]
+
+      else
+    #better
+    params[:tag] &&= params[:tag].downcase
+    ```
+
 * Avoid explicit use of the case equality operator `===`. As its name
   implies it is meant to be used implicitly by `case` expressions and
   outside of them it yields some pretty confusing code.
